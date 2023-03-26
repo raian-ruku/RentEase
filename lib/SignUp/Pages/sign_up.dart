@@ -60,6 +60,12 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   const SizedBox(height: 250),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter name';
+                      }
+                      return null;
+                    },
                     decoration: const InputDecoration(
                       labelText: 'Name',
                       labelStyle: TextStyle(
@@ -71,6 +77,12 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter email';
+                      }
+                      return null;
+                    },
                     decoration: const InputDecoration(
                       labelText: 'Email',
                       labelStyle: TextStyle(
@@ -82,6 +94,12 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter phone number';
+                      }
+                      return null;
+                    },
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Phone Number',
@@ -124,32 +142,34 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade200),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
-                      child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                        value: _selectUserType,
-                        hint: const Text('Select User Type'),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectUserType = newValue.toString();
-                          });
-                        },
-                        items: _userType.map((valueItem) {
-                          return DropdownMenuItem(
-                            value: valueItem,
-                            child: Text(valueItem),
-                          );
-                        }).toList(),
-                      )),
+                  Center(
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 2),
+                        child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                          value: _selectUserType,
+                          hint: const Text('Select User Type'),
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectUserType = newValue.toString();
+                            });
+                          },
+                          items: _userType.map((valueItem) {
+                            return DropdownMenuItem(
+                              value: valueItem,
+                              child: Text(valueItem),
+                            );
+                          }).toList(),
+                        )),
+                      ),
                     ),
                   ),
                   Padding(
@@ -157,7 +177,16 @@ class _SignUpState extends State<SignUp> {
                     child: SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            // If the form is valid, display a snackbar. In the real world,
+                            // you'd often call a server or save the information in a database.
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Succesfully Signed Up')),
+                            );
+                          }
+                        },
                         style: OutlinedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromRGBO(45, 207, 72, 0.69)),
