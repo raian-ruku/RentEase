@@ -10,6 +10,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  List<String> _userType = ['Owner', 'Tenant'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +46,9 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 250),
-                const TextField(
-                  decoration: InputDecoration(
+                //const SizedBox(height: 250),
+                TextFormField(
+                  decoration: const InputDecoration(
                     labelText: 'Name',
                     labelStyle: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
@@ -56,8 +57,8 @@ class _SignUpState extends State<SignUp> {
                             color: Color.fromRGBO(0, 0, 0, 0.686), width: 2.0)),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextFormField(
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
@@ -66,9 +67,9 @@ class _SignUpState extends State<SignUp> {
                             color: Color.fromRGBO(0, 0, 0, 0.686), width: 2.0)),
                   ),
                 ),
-                const TextField(
+                TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Phone Number',
                     labelStyle: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
@@ -77,9 +78,9 @@ class _SignUpState extends State<SignUp> {
                             color: Color.fromRGBO(0, 0, 0, 0.686), width: 2.0)),
                   ),
                 ),
-                const TextField(
+                TextFormField(
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
@@ -88,9 +89,9 @@ class _SignUpState extends State<SignUp> {
                             color: Color.fromRGBO(0, 0, 0, 0.686), width: 2.0)),
                   ),
                 ),
-                const TextField(
+                TextFormField(
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Confirm Password',
                     labelStyle: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
@@ -98,6 +99,20 @@ class _SignUpState extends State<SignUp> {
                         borderSide: BorderSide(
                             color: Color.fromRGBO(0, 0, 0, 0.686), width: 2.0)),
                   ),
+                ),
+                SizedBox(
+                  height: 50,
+                  child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                    hint: Text('Select User Type'),
+                    onChanged: (value) {
+                      print(value.toString());
+                    },
+                    items: _userType
+                        .map<DropdownMenuItem>(
+                            (e) => DropdownMenuItem(child: Text(e)))
+                        .toList(),
+                  )),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 25),
