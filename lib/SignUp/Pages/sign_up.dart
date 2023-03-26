@@ -10,7 +10,15 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  List<String> _userType = ['Owner', 'Tenant'];
+  late List<String> _userType;
+  String _selectUserType = 'Select User Type';
+  @override
+  void initState() {
+    // TODO: implement initState
+    _userType = ['Owner', 'Tenant'];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,12 +112,16 @@ class _SignUpState extends State<SignUp> {
                   height: 50,
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                    hint: Text('Select User Type'),
+                    hint: const Text('Select User Type'),
                     onChanged: (value) {
                       print(value.toString());
+                      setState(() {
+                        _selectUserType = value.toString();
+                      });
                     },
+                    value: _selectUserType,
                     items: _userType
-                        .map<DropdownMenuItem>(
+                        .map<DropdownMenuItem<String>>(
                             (e) => DropdownMenuItem(child: Text(e)))
                         .toList(),
                   )),
