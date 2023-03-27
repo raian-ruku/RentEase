@@ -1,5 +1,7 @@
+import 'package:flutter/services.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -13,11 +15,26 @@ class _SignUpState extends State<SignUp> {
   late List<String> _userType;
   String? _selectUserType;
   GlobalKey<FormState> formKey = GlobalKey();
+  final _picker = ImagePicker();
+  File? imageFile;
+
   @override
   void initState() {
     _userType = ['Owner', 'Tenant'];
-    print(_userType.length);
+    debugPrint(_userType.length.toString());
+
     super.initState();
+  }
+
+  Future pickImage() async {
+    try {
+      final imageFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (imageFile == null) return;
+      final imageTemp = File(imageFile.path);
+      setState(() => this.imageFile = imageTemp);
+    } on PlatformException catch (e) {
+      debugPrint('Failed to pick image: $e');
+    }
   }
 
   @override
@@ -142,6 +159,19 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.grey)),
+                        onPressed: () {
+                          pickImage();
+                        },
+                        child: const Text(
+                          "Pick Image to Upload",
+                          style: TextStyle(fontSize: 16),
+                        )),
                   ),
                   Center(
                     child: Container(
