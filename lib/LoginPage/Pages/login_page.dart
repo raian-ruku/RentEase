@@ -63,8 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                const TextField(
-                    decoration: InputDecoration(
+                TextFormField(
+                    decoration: const InputDecoration(
                         labelText: 'Username/Email',
                         labelStyle: TextStyle(
                             color: Color.fromRGBO(0, 0, 0, 0.686),
@@ -74,8 +74,8 @@ class _LoginPageState extends State<LoginPage> {
                               color: Color.fromRGBO(0, 0, 0, 0.686),
                               width: 2.0),
                         ))),
-                const TextField(
-                    decoration: InputDecoration(
+                TextFormField(
+                    decoration: const InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(
                             color: Color.fromRGBO(0, 0, 0, 0.686),

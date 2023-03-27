@@ -15,7 +15,6 @@ class _SignUpState extends State<SignUp> {
   GlobalKey<FormState> formKey = GlobalKey();
   @override
   void initState() {
-    // TODO: implement initState
     _userType = ['Owner', 'Tenant'];
     print(_userType.length);
     super.initState();
@@ -179,8 +178,6 @@ class _SignUpState extends State<SignUp> {
                       child: OutlinedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Succesfully Signed Up')),
