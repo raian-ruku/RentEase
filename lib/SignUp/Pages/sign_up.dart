@@ -74,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 250),
+                  const SizedBox(height: 200),
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
