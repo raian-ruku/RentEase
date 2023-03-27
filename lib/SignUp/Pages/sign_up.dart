@@ -4,6 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 
+import '../Model/user_model.dart';
+import '../Provider/user_repository.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -17,6 +20,13 @@ class _SignUpState extends State<SignUp> {
   GlobalKey<FormState> formKey = GlobalKey();
   final _picker = ImagePicker();
   File? imageFile;
+  UserModel? user;
+  UserRepository userRepository = UserRepository();
+  final _emailController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _phoneNumController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordController2 = TextEditingController();
 
   @override
   void initState() {
@@ -76,6 +86,7 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   const SizedBox(height: 200),
                   TextFormField(
+                    controller: _nameController,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter name';
@@ -93,6 +104,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   TextFormField(
+                    controller: _emailController,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter email';
@@ -110,6 +122,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   TextFormField(
+                    controller: _phoneNumController,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter phone number';
@@ -128,6 +141,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -146,6 +160,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   TextFormField(
+                    controller: _passwordController2,
                     obscureText: true,
                     decoration: const InputDecoration(
                       labelText: 'Confirm Password',
@@ -208,10 +223,17 @@ class _SignUpState extends State<SignUp> {
                       child: OutlinedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Succesfully Signed Up')),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //       content: Text('Succesfully Signed Up')),
+                            // );
+                            user = UserModel(
+                                name: _nameController.text,
+                                email: _emailController.text,
+                                phoneNumber: _passwordController.text,
+                                password: _passwordController.text,
+                                category: _selectUserType!);
+                            userRepository.createUser(user!);
                           }
                         },
                         style: OutlinedButton.styleFrom(

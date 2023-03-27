@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'package:rentease/SignUp/Pages/sign_up.dart';
+import 'package:rentease/OwnerUI/Pages/owner_landing.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -91,7 +92,13 @@ class _LoginPageState extends State<LoginPage> {
                     TextButton(
                       style: TextButton.styleFrom(
                           splashFactory: NoSplash.splashFactory),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                            return const OwnerUI();
+                          }),
+                        );
+                      },
                       child: const Text("Forgot Password?",
                           style: TextStyle(color: Color.fromRGBO(0, 0, 0, 80))),
                     ),

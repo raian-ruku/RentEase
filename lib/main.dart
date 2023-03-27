@@ -4,6 +4,8 @@ import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
