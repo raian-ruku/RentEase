@@ -223,10 +223,6 @@ class _SignUpState extends State<SignUp> {
                       child: OutlinedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //       content: Text('Succesfully Signed Up')),
-                            // );
                             user = UserModel(
                                 name: _nameController.text,
                                 email: _emailController.text,
