@@ -42,31 +42,51 @@ class _OwnerUIState extends State<OwnerUI> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 100),
-              Column(
-                children: const [
-                  Icon(
-                    Icons.person,
-                    size: 150,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Welcome, Owner!",
-                    style: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 110),
+                child: Column(
+                  children: const [
+                    Icon(
+                      Icons.person,
+                      size: 150,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Welcome, Owner!",
+                      style:
+                          TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width * 1,
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+                child: SizedBox(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width * .3,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            children: const [
+                              Icon(
+                                Icons.person,
+                                size: 24,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                "Tenants List",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      onPressed: () {},
-                      child: Text(
-                        "Tenants List",
-                        style: TextStyle(color: Colors.black),
-                      )))
+                    )),
+              )
             ],
           ),
         ),
