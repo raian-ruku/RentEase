@@ -32,6 +32,48 @@ class _OwnerUIState extends State<OwnerUI> {
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+              ),
+              child: const Center(
+                child: Text(
+                  'Management Menu',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic),
+                ),
+              ),
+            ),
+            ListTile(
+              splashColor: Colors.green.shade300,
+              title: const Text(
+                'Home',
+                style: TextStyle(fontSize: 17),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              splashColor: Colors.green.shade300,
+              title: const Text(
+                'Vacancies',
+                style: TextStyle(fontSize: 17),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height * 1,
@@ -59,33 +101,68 @@ class _OwnerUIState extends State<OwnerUI> {
                   ],
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-                child: SizedBox(
-                    height: 100,
-                    width: MediaQuery.of(context).size.width * .3,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          child: Column(
-                            children: const [
-                              Icon(
-                                Icons.person,
-                                size: 24,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                "Tenants List",
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ],
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 40),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Column(
+                              children: const [
+                                Icon(
+                                  Icons.person,
+                                  size: 30,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Tenants List",
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    )),
+                    ),
+                  ),
+                  const SizedBox(width: 40),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Column(
+                              children: const [
+                                Icon(
+                                  Icons.message,
+                                  size: 30,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Chat",
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
           ),
