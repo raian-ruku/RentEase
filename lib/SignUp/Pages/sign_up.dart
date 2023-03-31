@@ -226,7 +226,7 @@ class _SignUpState extends State<SignUp> {
                             user = UserModel(
                                 name: _nameController.text,
                                 email: _emailController.text,
-                                phoneNumber: _passwordController.text,
+                                phoneNumber: _phoneNumController.text,
                                 password: _passwordController.text,
                                 category: _selectUserType!);
                             userRepository.createUser(user!);
