@@ -11,7 +11,8 @@ class UserRepository extends GetxController {
     try {
       await _db.collection("Users").add(user.toJson());
       Get.snackbar("Success", "Your Account has been created",
-          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.only(top: 30),
+          snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: Colors.white);
     } catch (error) {
@@ -19,26 +20,8 @@ class UserRepository extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white);
-      // Return a value that is assignable to DocumentReference<Map<String, dynamic>>
+
       return _db.collection("Users").doc();
     }
   }
-
-  // createUser(UserModel user) async {
-  //   await _db
-  //       .collection("Users")
-  //       .add(user.toJson())
-  //       .whenComplete(
-  //         () => Get.snackbar("Success", "Your Account has been created",
-  //             snackPosition: SnackPosition.BOTTOM,
-  //             backgroundColor: Colors.green,
-  //             colorText: Colors.white),
-  //       )
-  //       .catchError((error) {
-  //     Get.snackbar("Error", "Something went wrong",
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         backgroundColor: Colors.red,
-  //         colorText: Colors.white);
-  //   });
-  // }
 }

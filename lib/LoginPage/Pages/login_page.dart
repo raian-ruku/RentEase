@@ -36,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 1,
           width: MediaQuery.of(context).size.width * 1,
