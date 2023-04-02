@@ -4,8 +4,10 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rentease/LoginPage/Pages/login_page.dart';
 import '../Model/user_model.dart';
 import '../Provider/user_repository.dart';
+import 'dart:async';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -27,26 +29,8 @@ class _SignUpState extends State<SignUp> {
   final _phoneNumController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordController2 = TextEditingController();
-  bool passwordverify(String a) {
-    bool b = false;
-    if (_passwordController2 != _passwordController) {
-      setState(() {
-        b = false;
-      });
-      Get.snackbar('Error', 'Password does not match',
-          snackPosition: SnackPosition.BOTTOM,
-          margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
-    } else {
-      setState(() {
-        b = true;
-      });
-    }
-    return b;
-  }
 
-  void createAccount() {
+  createAccount() {
     if (formKey.currentState!.validate()) {
       user = UserModel(
           name: _nameController.text,
@@ -54,7 +38,7 @@ class _SignUpState extends State<SignUp> {
           phoneNumber: _phoneNumController.text,
           password: _passwordController.text,
           category: _selectUserType!);
-      userRepository.createUser(user!);
+      userRepository.createUser(context, user!);
     }
   }
 
@@ -253,11 +237,20 @@ class _SignUpState extends State<SignUp> {
                       width: double.infinity,
                       child: OutlinedButton(
                         onPressed: () {
-                          if (passwordverify(_passwordController2.text) ==
-                              false) {
+                          if (_passwordController2.text !=
+                              _passwordController.text) {
+                            Get.snackbar(
+                              "Error",
+                              "Passwords do not match",
+                              snackPosition: SnackPosition.BOTTOM,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 30),
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                          } else {
                             createAccount();
                           }
-                          ;
                         },
                         style: OutlinedButton.styleFrom(
                             backgroundColor:

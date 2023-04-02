@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rentease/LoginPage/Pages/login_page.dart';
 import 'package:rentease/SignUp/Model/user_model.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
   final _db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
-  createUser(UserModel user) async {
+  createUser(BuildContext context, UserModel user) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -17,15 +18,30 @@ class UserRepository extends GetxController {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        Get.snackbar('The password provided is too weak.',
+            'Please enter a strong password',
+            snackPosition: SnackPosition.BOTTOM,
+            margin: const EdgeInsets.all(20),
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        Get.snackbar('The account already exists for that email.',
+            'Please enter a different email',
+            snackPosition: SnackPosition.BOTTOM,
+            margin: const EdgeInsets.all(20),
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
       }
     } catch (e) {
       print(e);
     }
     try {
-      await _db.collection("Users").add(user.toJson());
+      var d = await _db.collection("Users").add(user.toJson());
+      print('d:${d.id}');
+      if (d.id.isNotEmpty) {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+      }
+
       Get.snackbar("Success", "Your Account has been created",
           margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
           snackPosition: SnackPosition.TOP,
@@ -34,22 +50,35 @@ class UserRepository extends GetxController {
     } catch (error) {
       Get.snackbar("Error", "Something went wrong",
           snackPosition: SnackPosition.BOTTOM,
-          margin: EdgeInsets.all(20),
+          margin: const EdgeInsets.all(20),
           backgroundColor: Colors.red,
           colorText: Colors.white);
 
       return _db.collection("Users").doc();
     }
+    await FirebaseAuth.instance.signOut();
+  }
+
+  signIn(String _email, String _pass) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: user.email, password: user.password);
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: _email, password: _pass);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        Get.snackbar(
+            'No user found for that email.', 'Please enter correct email',
+            snackPosition: SnackPosition.BOTTOM,
+            margin: const EdgeInsets.all(20),
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        Get.snackbar('Wrong password provided for that user.',
+            'Please Enter correct password',
+            snackPosition: SnackPosition.BOTTOM,
+            margin: const EdgeInsets.all(20),
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
       }
     }
-    await FirebaseAuth.instance.signOut();
   }
 }

@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'package:rentease/SignUp/Pages/sign_up.dart';
 import 'package:rentease/OwnerUI/Pages/owner_landing.dart';
+
+import '../../SignUp/Provider/user_repository.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +15,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
+
+  signin() {
+    if (formKey.currentState!.validate()) {
+      UserRepository().signIn(_emailController.text, _passwordController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,116 +55,133 @@ class _LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width * 1,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 250),
-                Container(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "images/RentEase-v1.png",
-                          fit: BoxFit.contain,
-                          height: 30,
-                          width: 150,
-                        ),
-                        const Text(
-                          ("Welcome to RentEase!"),
-                          style: TextStyle(fontSize: 22),
-                        ),
-                      ],
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 250),
+                  Container(
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "images/RentEase-v1.png",
+                            fit: BoxFit.contain,
+                            height: 30,
+                            width: 150,
+                          ),
+                          const Text(
+                            ("Welcome to RentEase!"),
+                            style: TextStyle(fontSize: 22),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(
-                            color: Color.fromRGBO(0, 0, 0, 0.686),
-                            fontSize: 15),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(0, 0, 0, 0.686),
-                              width: 2.0),
-                        ))),
-                TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                        labelText: "Password",
-                        labelStyle: TextStyle(
-                            color: Color.fromRGBO(0, 0, 0, 0.686),
-                            fontSize: 15),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(0, 0, 0, 0.686),
-                              width: 2.0),
-                        ))),
-                Row(
-                  children: [
-                    const SizedBox(width: 221),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          splashFactory: NoSplash.splashFactory),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                            return const OwnerUI();
-                          }),
-                        );
+                  TextFormField(
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter email';
+                        }
+                        return null;
                       },
-                      child: const Text("Forgot Password?",
-                          style: TextStyle(color: Color.fromRGBO(0, 0, 0, 80))),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromRGBO(45, 207, 72, 0.69),
+                      decoration: const InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: TextStyle(
+                              color: Color.fromRGBO(0, 0, 0, 0.686),
+                              fontSize: 15),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(0, 0, 0, 0.686),
+                                width: 2.0),
+                          ))),
+                  TextFormField(
+                      obscureText: true,
+                      controller: _passwordController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter password';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                          labelText: "Password",
+                          labelStyle: TextStyle(
+                              color: Color.fromRGBO(0, 0, 0, 0.686),
+                              fontSize: 15),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(0, 0, 0, 0.686),
+                                width: 2.0),
+                          ))),
+                  Row(
+                    children: [
+                      const SizedBox(width: 221),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            splashFactory: NoSplash.splashFactory),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return const OwnerUI();
+                            }),
+                          );
+                        },
+                        child: const Text("Forgot Password?",
+                            style:
+                                TextStyle(color: Color.fromRGBO(0, 0, 0, 80))),
                       ),
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () => signin(),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromRGBO(45, 207, 72, 0.69),
+                        ),
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 50),
-                Row(
-                  children: [
-                    const SizedBox(width: 50),
-                    const Text(
-                      "Don't Have An Account?",
-                      style: TextStyle(color: Colors.black, fontSize: 17),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          splashFactory: NoSplash.splashFactory),
-                      child: const Text(
-                        'Sign Up',
+                  const SizedBox(height: 50),
+                  Row(
+                    children: [
+                      const SizedBox(width: 50),
+                      const Text(
+                        "Don't Have An Account?",
                         style: TextStyle(color: Colors.black, fontSize: 17),
                       ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                            return const SignUp();
-                          }),
-                        );
-                      },
-                    )
-                  ],
-                ),
-                const SizedBox(height: 50),
-                const Spacer(),
-              ],
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            splashFactory: NoSplash.splashFactory),
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return const SignUp();
+                            }),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  const Spacer(),
+                ],
+              ),
             ),
           ),
         ),

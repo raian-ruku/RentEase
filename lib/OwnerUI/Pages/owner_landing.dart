@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'vacancies.dart';
+import 'package:rentease/OwnerUI/Constants/custom_drawer.dart';
 
 class OwnerUI extends StatefulWidget {
   const OwnerUI({super.key});
@@ -35,57 +36,7 @@ class _OwnerUIState extends State<OwnerUI> {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-              ),
-              child: const Center(
-                child: Text(
-                  'Management Menu',
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            ListTile(
-              splashColor: Colors.green.shade300,
-              leading: const Icon(Icons.home_outlined),
-              iconColor: Colors.black,
-              title: const Text(
-                'Home',
-                style: TextStyle(fontSize: 17),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            Divider(
-              color: Colors.green.withOpacity(0.2),
-              thickness: 1,
-            ),
-            ListTile(
-              splashColor: Colors.green.shade300,
-              leading: const Icon(Icons.manage_search),
-              iconColor: Colors.black,
-              title: const Text(
-                'Vacancies',
-                style: TextStyle(fontSize: 17),
-              ),
-              subtitle: const Text("post or check vacancies"),
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Vacancies()));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const CustomDrawer(),
       body: SizedBox(
         height: MediaQuery.of(context).size.height * 1,
         width: MediaQuery.of(context).size.width * 1,
