@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
+import 'vacancies.dart';
 
 class OwnerUI extends StatefulWidget {
   const OwnerUI({super.key});
@@ -54,6 +55,8 @@ class _OwnerUIState extends State<OwnerUI> {
             ),
             ListTile(
               splashColor: Colors.green.shade300,
+              leading: const Icon(Icons.home_outlined),
+              iconColor: Colors.black,
               title: const Text(
                 'Home',
                 style: TextStyle(fontSize: 17),
@@ -62,14 +65,22 @@ class _OwnerUIState extends State<OwnerUI> {
                 Navigator.pop(context);
               },
             ),
+            Divider(
+              color: Colors.green.withOpacity(0.2),
+              thickness: 1,
+            ),
             ListTile(
               splashColor: Colors.green.shade300,
+              leading: const Icon(Icons.manage_search),
+              iconColor: Colors.black,
               title: const Text(
                 'Vacancies',
                 style: TextStyle(fontSize: 17),
               ),
+              subtitle: const Text("post or check vacancies"),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const Vacancies()));
               },
             ),
           ],
