@@ -3,7 +3,7 @@ import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../Model/user_model.dart';
 import '../Provider/user_repository.dart';
 
@@ -27,6 +27,36 @@ class _SignUpState extends State<SignUp> {
   final _phoneNumController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordController2 = TextEditingController();
+  bool passwordverify(String a) {
+    bool b = false;
+    if (_passwordController2 != _passwordController) {
+      setState(() {
+        b = false;
+      });
+      Get.snackbar('Error', 'Password does not match',
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+    } else {
+      setState(() {
+        b = true;
+      });
+    }
+    return b;
+  }
+
+  void createAccount() {
+    if (formKey.currentState!.validate()) {
+      user = UserModel(
+          name: _nameController.text,
+          email: _emailController.text,
+          phoneNumber: _phoneNumController.text,
+          password: _passwordController.text,
+          category: _selectUserType!);
+      userRepository.createUser(user!);
+    }
+  }
 
   @override
   void initState() {
@@ -223,15 +253,11 @@ class _SignUpState extends State<SignUp> {
                       width: double.infinity,
                       child: OutlinedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            user = UserModel(
-                                name: _nameController.text,
-                                email: _emailController.text,
-                                phoneNumber: _phoneNumController.text,
-                                password: _passwordController.text,
-                                category: _selectUserType!);
-                            userRepository.createUser(user!);
+                          if (passwordverify(_passwordController2.text) ==
+                              false) {
+                            createAccount();
                           }
+                          ;
                         },
                         style: OutlinedButton.styleFrom(
                             backgroundColor:

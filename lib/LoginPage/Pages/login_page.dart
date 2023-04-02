@@ -10,6 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextFormField(
+                    controller: _emailController,
                     decoration: const InputDecoration(
-                        labelText: 'Username/Email',
+                        labelText: 'Email',
                         labelStyle: TextStyle(
                             color: Color.fromRGBO(0, 0, 0, 0.686),
                             fontSize: 15),
@@ -77,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                               width: 2.0),
                         ))),
                 TextFormField(
+                    controller: _passwordController,
                     decoration: const InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(
