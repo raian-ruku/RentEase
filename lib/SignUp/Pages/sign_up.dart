@@ -57,7 +57,10 @@ class _SignUpState extends State<SignUp> {
       final imageTemp = File(imageFile.path);
       setState(() => this.imageFile = imageTemp);
     } on PlatformException catch (e) {
-      debugPrint('Failed to pick image: $e');
+      Get.snackbar('Failed to pick image: $e', "Try again",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 
