@@ -169,6 +169,7 @@ class _SignUpState extends State<SignUp> {
                     },
                     decoration: const InputDecoration(
                       labelText: 'Password',
+                      hintText: "Enter atleast 6 characters",
                       labelStyle: TextStyle(
                           color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
                       focusedBorder: UnderlineInputBorder(
