@@ -117,24 +117,21 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Color.fromRGBO(0, 0, 0, 0.686),
                                 width: 2.0),
                           ))),
-                  Row(
-                    children: [
-                      const SizedBox(width: 221),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            splashFactory: NoSplash.splashFactory),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                              return const OwnerUI();
-                            }),
-                          );
-                        },
-                        child: const Text("Forgot Password?",
-                            style:
-                                TextStyle(color: Color.fromRGBO(0, 0, 0, 80))),
-                      ),
-                    ],
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                            return const OwnerUI();
+                          }),
+                        );
+                      },
+                      child: const Text("Forgot Password?",
+                          style: TextStyle(color: Color.fromRGBO(0, 0, 0, 80))),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 25),

@@ -182,19 +182,44 @@ class _PostVacancyState extends State<PostVacancy> {
                           ),
                         ),
                       ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: 'Rent',
-                          labelStyle: TextStyle(
-                              color: Color.fromRGBO(0, 0, 0, 0.686),
-                              fontSize: 15),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(0, 0, 0, 0.686),
-                                width: 2.0),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 150,
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: 'Number of Rooms',
+                                labelStyle: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 0.686),
+                                    fontSize: 15),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromRGBO(0, 0, 0, 0.686),
+                                      width: 2.0),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          const Expanded(child: SizedBox()),
+                          SizedBox(
+                            width: 150,
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: 'Number of Bath',
+                                labelStyle: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 0.686),
+                                    fontSize: 15),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromRGBO(0, 0, 0, 0.686),
+                                      width: 2.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
