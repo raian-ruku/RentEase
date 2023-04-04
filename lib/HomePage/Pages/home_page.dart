@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rentease/PropertyList/Constants/property_list.dart';
+import 'package:rentease/PropertyList/Provider/property_list.dart';
 import 'package:rentease/LoginPage/Pages/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -102,33 +102,33 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: HomePageCons.propertyList
-                                .map((e) => Card(
-                                      elevation: 10,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            '${e.rent}',
-                                            style:
-                                                const TextStyle(fontSize: 25),
-                                          ),
-                                          Text(e.size,
-                                              style: const TextStyle(
-                                                  fontSize: 18)),
-                                          Text(
-                                            e.address,
-                                            style:
-                                                const TextStyle(fontSize: 22),
-                                          ),
-                                        ],
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        )
+                        // SingleChildScrollView(
+                        //   scrollDirection: Axis.horizontal,
+                        //   child: Row(
+                        //     children: HomePageCons.propertyList
+                        //         .map((e) => Card(
+                        //               elevation: 10,
+                        //               child: Column(
+                        //                 children: [
+                        //                   Text(
+                        //                     '${e.rent}',
+                        //                     style:
+                        //                         const TextStyle(fontSize: 25),
+                        //                   ),
+                        //                   Text(e.size,
+                        //                       style: const TextStyle(
+                        //                           fontSize: 18)),
+                        //                   Text(
+                        //                     e.address,
+                        //                     style:
+                        //                         const TextStyle(fontSize: 22),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ))
+                        //         .toList(),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

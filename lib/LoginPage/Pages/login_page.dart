@@ -62,22 +62,20 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: 250),
-                  Container(
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "images/RentEase-v1.png",
-                            fit: BoxFit.contain,
-                            height: 30,
-                            width: 150,
-                          ),
-                          const Text(
-                            ("Welcome to RentEase!"),
-                            style: TextStyle(fontSize: 22),
-                          ),
-                        ],
-                      ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "images/RentEase-v1.png",
+                          fit: BoxFit.contain,
+                          height: 30,
+                          width: 150,
+                        ),
+                        const Text(
+                          ("Welcome to RentEase!"),
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ],
                     ),
                   ),
                   TextFormField(

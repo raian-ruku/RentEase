@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rentease/LoginPage/Pages/login_page.dart';
+
 import '../Model/user_model.dart';
 import '../Provider/user_repository.dart';
 import 'dart:async';
@@ -102,23 +102,36 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 200),
-                  TextFormField(
-                    controller: _nameController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter name';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                      labelStyle: TextStyle(
-                          color: Color.fromRGBO(0, 0, 0, 0.686), fontSize: 15),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(0, 0, 0, 0.686),
-                              width: 2.0)),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ClipOval(
+                      child: SizedBox(
+                          height: 150,
+                          width: 150,
+                          child: imageFile != null
+                              ? Image.file(imageFile!)
+                              : const SizedBox()),
+                    ),
+                  ),
+                  SizedBox(
+                    child: TextFormField(
+                      controller: _nameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter name';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                        labelStyle: TextStyle(
+                            color: Color.fromRGBO(0, 0, 0, 0.686),
+                            fontSize: 15),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(0, 0, 0, 0.686),
+                                width: 2.0)),
+                      ),
                     ),
                   ),
                   TextFormField(
