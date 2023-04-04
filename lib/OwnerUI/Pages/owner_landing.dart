@@ -50,16 +50,18 @@ class _OwnerUIState extends State<OwnerUI> {
                 padding: const EdgeInsets.symmetric(horizontal: 110),
                 child: Column(
                   children: const [
-                    Icon(
-                      Icons.person,
-                      size: 150,
+                    Placeholder(
+                      fallbackHeight: 200,
+                      //owner image goes here
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      "Welcome, Owner!",
-                      style:
-                          TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
-                    ),
+                    Placeholder(
+                        fallbackHeight: 30,
+                        child: Text(
+                          "owner name",
+                          style: TextStyle(
+                              fontSize: 25, fontStyle: FontStyle.italic),
+                        )),
                   ],
                 ),
               ),

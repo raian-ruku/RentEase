@@ -61,10 +61,13 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 250),
+                  const SizedBox(height: 150),
                   Center(
                     child: Column(
                       children: [
+                        const Placeholder(
+                          fallbackHeight: 100,
+                        ),
                         Image.asset(
                           "images/RentEase-v1.png",
                           fit: BoxFit.contain,
