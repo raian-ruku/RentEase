@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rentease/PropertyList/Provider/property_list.dart';
+import 'package:rentease/PropertyList/Provider/get_property_list.dart';
 import 'package:rentease/LoginPage/Pages/login_page.dart';
+import 'package:rentease/PropertyList/Model/property_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -102,33 +103,54 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        // SingleChildScrollView(
-                        //   scrollDirection: Axis.horizontal,
-                        //   child: Row(
-                        //     children: HomePageCons.propertyList
-                        //         .map((e) => Card(
-                        //               elevation: 10,
-                        //               child: Column(
-                        //                 children: [
-                        //                   Text(
-                        //                     '${e.rent}',
-                        //                     style:
-                        //                         const TextStyle(fontSize: 25),
-                        //                   ),
-                        //                   Text(e.size,
-                        //                       style: const TextStyle(
-                        //                           fontSize: 18)),
-                        //                   Text(
-                        //                     e.address,
-                        //                     style:
-                        //                         const TextStyle(fontSize: 22),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ))
-                        //         .toList(),
-                        //   ),
-                        // )
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: FutureBuilder<List<PropertyModel>>(
+                            future: PropertyList.instance.propertyData(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final propertyList = snapshot.data!;
+                                return Row(
+                                  children: propertyList
+                                      .map((e) => SizedBox(
+                                            child: Card(
+                                              elevation: 10,
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    '\৳${e.rent}',
+                                                    style: const TextStyle(
+                                                        fontSize: 25),
+                                                  ),
+                                                  Text(
+                                                    e.description,
+                                                    style: const TextStyle(
+                                                        fontSize: 18),
+                                                  ),
+                                                  Text(
+                                                    e.area,
+                                                    style: const TextStyle(
+                                                        fontSize: 18),
+                                                  ),
+                                                  Text(
+                                                    e.address,
+                                                    style: const TextStyle(
+                                                        fontSize: 22),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ))
+                                      .toList(),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),

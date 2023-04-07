@@ -14,6 +14,7 @@ class Vacancies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: GestureDetector(
@@ -41,10 +42,10 @@ class Vacancies extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 1,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
             child: Column(
               children: [
-                const SizedBox(height: 300),
+                const SizedBox(height: 250),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: SizedBox(
@@ -86,7 +87,7 @@ class Vacancies extends StatelessWidget {
                     style: ButtonStyle(
                       splashFactory: NoSplash.splashFactory,
                       backgroundColor: MaterialStateProperty.all(
-                          Colors.green.withOpacity(0.8)),
+                          Colors.green.withOpacity(.7)),
                     ),
                     child: const Text(
                       "Check Posted Vacancy",

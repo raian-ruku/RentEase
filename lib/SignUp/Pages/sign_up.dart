@@ -110,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                           width: 150,
                           child: imageFile != null
                               ? Image.file(imageFile!)
-                              : Center(child: const Text("No Image Selected"))),
+                              : const Center(child: Text("No Image Selected"))),
                     ),
                   ),
                   SizedBox(

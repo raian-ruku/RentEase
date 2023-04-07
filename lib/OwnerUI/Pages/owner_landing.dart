@@ -14,6 +14,7 @@ class _OwnerUIState extends State<OwnerUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: GestureDetector(
@@ -45,7 +46,7 @@ class _OwnerUIState extends State<OwnerUI> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 100),
+              const SizedBox(height: 80),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 110),
                 child: Column(

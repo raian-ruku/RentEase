@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 List<PropertyModel> propertyModelFromJson(String str) =>
     List<PropertyModel>.from(
@@ -44,4 +45,18 @@ class PropertyModel {
         "area": area,
         "category": category,
       };
+
+  factory PropertyModel.snapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data()!;
+    return PropertyModel(
+      description: data['description'],
+      address: data['address'],
+      rooms: data['rooms'],
+      baths: data['baths'],
+      rent: data['rent'],
+      area: data['area'],
+      category: data['category'],
+    );
+  }
 }
