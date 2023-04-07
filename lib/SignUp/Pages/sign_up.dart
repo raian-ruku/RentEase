@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,15 +31,36 @@ class _SignUpState extends State<SignUp> {
   final _passwordController = TextEditingController();
   final _passwordController2 = TextEditingController();
 
-  createAccount() {
+  createAccount() async {
     if (formKey.currentState!.validate()) {
-      user = UserModel(
-          name: _nameController.text,
-          email: _emailController.text,
-          phoneNumber: _phoneNumController.text,
-          password: _passwordController.text,
-          category: _selectUserType!);
-      userRepository.createUser(context, user!);
+      final user = UserModel(
+        name: _nameController.text,
+        email: _emailController.text,
+        phoneNumber: _phoneNumController.text,
+        password: _passwordController.text,
+        category: _selectUserType!,
+      );
+
+      try {
+        if (imageFile != null) {
+          final storageRef = FirebaseStorage.instance.ref().child(
+              'user_profile_pictures/${DateTime.now().toIso8601String()}');
+          final uploadTask = storageRef.putFile(imageFile!);
+          final snapshot = await uploadTask.whenComplete(() => {});
+          final downloadURL = await snapshot.ref.getDownloadURL();
+          user.imageURL = downloadURL;
+        }
+
+        userRepository.createUser(context, user);
+      } catch (e) {
+        Get.snackbar(
+          'Error creating account',
+          e.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
     }
   }
 
@@ -50,17 +72,40 @@ class _SignUpState extends State<SignUp> {
     super.initState();
   }
 
-  Future pickImage() async {
+  Future<String?> pickImage() async {
     try {
       final imageFile = await _picker.pickImage(source: ImageSource.gallery);
-      if (imageFile == null) return;
-      final imageTemp = File(imageFile.path);
-      setState(() => this.imageFile = imageTemp);
+      if (imageFile == null) return null;
+
+      // Upload image to Firebase Storage
+      final Reference storageRef = FirebaseStorage.instance
+          .ref()
+          .child('user_profile_images')
+          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      final TaskSnapshot uploadTask =
+          await storageRef.putFile(File(imageFile.path));
+      final imageUrl = await uploadTask.ref.getDownloadURL();
+
+      return imageUrl;
     } on PlatformException catch (e) {
-      Get.snackbar('Failed to pick image: $e', "Try again",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
+      Get.snackbar(
+        'Failed to pick image: $e',
+        "Try again",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return null;
+    } catch (e) {
+      Get.snackbar(
+        'Error uploading image: $e',
+        "Try again",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return null;
     }
   }
 

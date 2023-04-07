@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:rentease/SplashScreen/Pages/splash_screen.dart';
-import 'package:rentease/HomePage/Pages/home_page.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
+  FirebaseAppCheck.instance.activate();
   runApp(const MyApp());
 }
 
