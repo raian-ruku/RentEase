@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
@@ -49,6 +50,11 @@ class _SignUpState extends State<SignUp> {
           final snapshot = await uploadTask.whenComplete(() => {});
           final downloadURL = await snapshot.ref.getDownloadURL();
           user.imageURL = downloadURL;
+          final uid = userRepository.getUid();
+          await FirebaseFirestore.instance
+              .collection('Users')
+              .doc(user.uid)
+              .update({'imageURL': downloadURL});
         }
 
         userRepository.createUser(context, user);
