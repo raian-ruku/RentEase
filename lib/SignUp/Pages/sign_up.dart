@@ -32,68 +32,57 @@ class _SignUpState extends State<SignUp> {
   final _passwordController = TextEditingController();
   final _passwordController2 = TextEditingController();
 
-  createAccount() async {
-    if (formKey.currentState!.validate()) {
-      final user = UserModel(
-        name: _nameController.text,
-        email: _emailController.text,
-        phoneNumber: _phoneNumController.text,
-        password: _passwordController.text,
-        category: _selectUserType!,
-      );
+  String? imageurl;
 
-      try {
-        if (imageFile != null) {
-          final storageRef = FirebaseStorage.instance.ref().child(
-              'user_profile_pictures/${DateTime.now().toIso8601String()}');
-          final uploadTask = storageRef.putFile(imageFile!);
-          final snapshot = await uploadTask.whenComplete(() => {});
-          final downloadURL = await snapshot.ref.getDownloadURL();
-          user.imageURL = downloadURL;
-          final uid = userRepository.getUid();
-          await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(user.uid)
-              .update({'imageURL': downloadURL});
-        }
-
-        userRepository.createUser(context, user);
-      } catch (e) {
-        Get.snackbar(
-          'Error creating account',
-          e.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    _userType = ['Owner', 'Tenant'];
-    debugPrint(_userType.length.toString());
-
-    super.initState();
-  }
-
-  Future<String?> pickImage() async {
+  Future createAccount() async {
     try {
-      final imageFile = await _picker.pickImage(source: ImageSource.gallery);
-      if (imageFile == null) return null;
-
-      // Upload image to Firebase Storage
+      /// upload task here
       final Reference storageRef = FirebaseStorage.instance
           .ref()
           .child('user_profile_images')
           .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
 
       final TaskSnapshot uploadTask =
-          await storageRef.putFile(File(imageFile.path));
+          await storageRef.putFile(File(imageFile!.path));
       final imageUrl = await uploadTask.ref.getDownloadURL();
+      setState(() {});
 
-      return imageUrl;
+      user = UserModel(
+        name: _nameController.text,
+        email: _emailController.text,
+        phoneNumber: _phoneNumController.text,
+        password: _passwordController.text,
+        category: _selectUserType!,
+        imageURL: imageUrl,
+      );
+
+      userRepository.createUser(context, user!);
+    } catch (e) {
+      Get.snackbar(
+        'Error creating account',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<String?> pickImage() async {
+    try {
+      final imageFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (imageFile == null) return null;
+      setState(() {});
+
+      // Upload image to Firebase Storage
+      // final Reference storageRef = FirebaseStorage.instance
+      //     .ref()
+      //     .child('user_profile_images')
+      //     .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      // final TaskSnapshot uploadTask =
+      //     await storageRef.putFile(File(imageFile.path));
+      // final imageUrl = await uploadTask.ref.getDownloadURL();
     } on PlatformException catch (e) {
       Get.snackbar(
         'Failed to pick image: $e',
@@ -113,6 +102,13 @@ class _SignUpState extends State<SignUp> {
       );
       return null;
     }
+  }
+
+  @override
+  void initState() {
+    _userType = ['Owner', 'Tenant'];
+    debugPrint(_userType.length.toString());
+    super.initState();
   }
 
   @override

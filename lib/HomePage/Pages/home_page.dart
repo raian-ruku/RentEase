@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    '\৳${e.rent}',
+                                                    '৳${e.rent}',
                                                     style: const TextStyle(
                                                         fontSize: 25),
                                                   ),
