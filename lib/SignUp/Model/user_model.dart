@@ -32,7 +32,7 @@ class UserModel {
         phoneNumber: json["phoneNumber"],
         password: json["password"],
         category: json["category"],
-        imageURL: json["image url"],
+        imageURL: json["image_url"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +42,6 @@ class UserModel {
         "phoneNumber": phoneNumber,
         "password": password,
         "category": category,
-        "image url": imageURL,
+        "image_url": imageURL,
       };
 }
