@@ -11,6 +11,8 @@ import '../Model/user_model.dart';
 import '../Provider/user_repository.dart';
 import 'dart:async';
 
+final _db = FirebaseFirestore.instance;
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -36,16 +38,8 @@ class _SignUpState extends State<SignUp> {
 
   Future createAccount() async {
     try {
-      /// upload task here
-      final Reference storageRef = FirebaseStorage.instance
-          .ref()
-          .child('user_profile_images')
-          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
-
-      final TaskSnapshot uploadTask =
-          await storageRef.putFile(File(imageFile!.path));
-      final imageUrl = await uploadTask.ref.getDownloadURL();
-      setState(() {});
+      var uid = await _db.collection("Users").add(user!.toJson());
+      print("uid: $uid");
 
       user = UserModel(
         name: _nameController.text,
@@ -53,7 +47,7 @@ class _SignUpState extends State<SignUp> {
         phoneNumber: _phoneNumController.text,
         password: _passwordController.text,
         category: _selectUserType!,
-        imageURL: imageUrl,
+        imageURL: imageurl,
       );
 
       userRepository.createUser(context, user!);
@@ -75,10 +69,10 @@ class _SignUpState extends State<SignUp> {
       setState(() {});
 
       // Upload image to Firebase Storage
-      // final Reference storageRef = FirebaseStorage.instance
-      //     .ref()
-      //     .child('user_profile_images')
-      //     .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final Reference storageRef = FirebaseStorage.instance
+          .ref()
+          .child('user_profile_images')
+          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
 
       // final TaskSnapshot uploadTask =
       //     await storageRef.putFile(File(imageFile.path));
