@@ -139,7 +139,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
-                        onPressed: () => signin(),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return const OwnerUI();
+                            }),
+                          );
+                        },
                         style: OutlinedButton.styleFrom(
                           backgroundColor:
                               const Color.fromRGBO(45, 207, 72, 0.69),

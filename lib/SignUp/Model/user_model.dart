@@ -8,7 +8,7 @@ String userModelToJson(List<UserModel> data) =>
 
 class UserModel {
   UserModel({
-    this.id,
+    this.uid,
     required this.name,
     required this.email,
     required this.phoneNumber,
@@ -17,7 +17,7 @@ class UserModel {
     this.imageURL,
   });
 
-  final String? id;
+  final String? uid;
   final String name;
   final String email;
   final String phoneNumber;
@@ -26,6 +26,7 @@ class UserModel {
   String? imageURL;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        uid: json["uid"],
         name: json["name"],
         email: json["email"],
         phoneNumber: json["phoneNumber"],
@@ -41,5 +42,6 @@ class UserModel {
         "password": password,
         "category": category,
         "image_url": imageURL,
+        "uid": uid,
       };
 }
