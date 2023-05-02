@@ -81,9 +81,4 @@ class UserRepository extends GetxController {
       }
     }
   }
-
-  getUid() {
-    final currentUser = _auth.currentUser;
-    return currentUser?.uid;
-  }
 }
