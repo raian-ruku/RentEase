@@ -86,6 +86,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             onTap: () {
               FirebaseAuth.instance.signOut();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Logged Out'),
+                  backgroundColor: Colors.red,
+                ),
+              );
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const HomePage()));
             },

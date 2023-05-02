@@ -12,8 +12,7 @@ class UserRepository extends GetxController {
   final _auth = FirebaseAuth.instance;
   createUser(BuildContext context, UserModel user) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
@@ -65,6 +64,11 @@ class UserRepository extends GetxController {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pass);
       Get.off(() => const OwnerUI());
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user != null) {
+          print(user.uid);
+        }
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Get.snackbar(
