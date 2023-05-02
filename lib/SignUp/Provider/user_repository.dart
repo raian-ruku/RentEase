@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rentease/LoginPage/Pages/login_page.dart';
+import 'package:rentease/OwnerUI/Pages/owner_landing.dart';
 import 'package:rentease/SignUp/Model/user_model.dart';
 
 class UserRepository extends GetxController {
@@ -61,8 +62,9 @@ class UserRepository extends GetxController {
 
   signIn(String _email, String _pass) async {
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pass);
+      Get.off(() => const OwnerUI());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Get.snackbar(

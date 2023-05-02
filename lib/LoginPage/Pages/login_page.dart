@@ -140,11 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       child: OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                              return const OwnerUI();
-                            }),
-                          );
+                          signin();
                         },
                         style: OutlinedButton.styleFrom(
                           backgroundColor:
