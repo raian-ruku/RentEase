@@ -66,7 +66,11 @@ class UserRepository extends GetxController {
       Get.off(() => const OwnerUI());
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user != null) {
-          print(user.uid);
+          Get.snackbar('Logged In', 'Successfully signed in as ${user.uid} ',
+              snackPosition: SnackPosition.BOTTOM,
+              margin: const EdgeInsets.all(20),
+              backgroundColor: Colors.green,
+              colorText: Colors.white);
         }
       });
     } on FirebaseAuthException catch (e) {

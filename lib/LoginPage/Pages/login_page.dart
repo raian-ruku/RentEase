@@ -5,6 +5,7 @@ import 'package:rentease/SignUp/Pages/sign_up.dart';
 import 'package:rentease/OwnerUI/Pages/owner_landing.dart';
 
 import '../../SignUp/Provider/user_repository.dart';
+import 'forgot_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -126,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
-                            return const OwnerUI();
+                            return const ForgotUI();
                           }),
                         );
                       },

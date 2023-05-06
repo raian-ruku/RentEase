@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
+import 'package:rentease/SignUp/Provider/user_repository.dart';
 
 import '../Pages/owner_landing.dart';
 import '../Pages/vacancies.dart';
@@ -51,10 +52,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   MaterialPageRoute(builder: (context) => const OwnerUI()));
             },
           ),
-          Divider(
-            color: Colors.green.withOpacity(0.2),
-            thickness: 1,
-          ),
           ListTile(
             splashColor: Colors.green.shade300,
             leading: const Icon(
@@ -72,9 +69,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   MaterialPageRoute(builder: (context) => const Vacancies()));
             },
           ),
-          Divider(
-            color: Colors.green.withOpacity(0.2),
-            thickness: 1,
+          ListTile(
+            splashColor: Colors.green.shade300,
+            leading: const Icon(
+              Icons.manage_search_outlined,
+              size: 30,
+            ),
+            iconColor: Colors.black,
+            title: const Text(
+              'Profile',
+              style: TextStyle(fontSize: 17),
+            ),
+            subtitle: const Text("check your profile"),
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const Vacancies()));
+            },
           ),
           ListTile(
             splashColor: Colors.green.shade300,
@@ -88,7 +98,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               FirebaseAuth.instance.signOut();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Logged Out'),
+                  content: Text('Logged Out from '),
                   backgroundColor: Colors.red,
                 ),
               );
