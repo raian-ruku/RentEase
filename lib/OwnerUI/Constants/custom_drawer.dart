@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
+import 'package:rentease/ProfilePage/Pages/profile.dart';
 import 'package:rentease/SignUp/Provider/user_repository.dart';
 
 import '../Pages/owner_landing.dart';
@@ -83,7 +84,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             subtitle: const Text("check your profile"),
             onTap: () {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Vacancies()));
+                  MaterialPageRoute(builder: (context) => const Profile()));
             },
           ),
           ListTile(
