@@ -5,11 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rentease/LoginPage/Pages/login_page.dart';
 import 'package:rentease/OwnerUI/Pages/owner_landing.dart';
 import 'package:rentease/SignUp/Model/user_model.dart';
+import 'package:rentease/TenantUI/Pages/tenant_landing.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
   final _db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+
   createUser(BuildContext context, UserModel user) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -64,9 +66,12 @@ class UserRepository extends GetxController {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pass);
       Get.off(() => const OwnerUI());
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+
+      FirebaseAuth.instance.authStateChanges().listen((User? user) async {
         if (user != null) {
-          Get.snackbar('Logged In', 'Successfully signed in as ${user.uid} ',
+          String name = user.displayName ?? user.email ?? user.uid;
+
+          Get.snackbar('Logged In', 'Successfully signed in as $name',
               snackPosition: SnackPosition.BOTTOM,
               margin: const EdgeInsets.all(20),
               backgroundColor: Colors.green,

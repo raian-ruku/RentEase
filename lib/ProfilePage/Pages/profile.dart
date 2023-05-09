@@ -7,12 +7,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
-
+import 'package:rentease/ProfilePage/Model/profile_info.dart';
 import 'package:rentease/OwnerUI/Constants/custom_drawer.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +56,13 @@ class Profile extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Container(
-              color: Colors.red,
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.6,
               width: double.infinity,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Padding(
                       padding: EdgeInsets.only(bottom: 20),

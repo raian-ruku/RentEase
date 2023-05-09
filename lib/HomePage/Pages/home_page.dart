@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * .8,
                     width: MediaQuery.of(context).size.width * 1,
                     child: Column(
                       children: [
@@ -113,17 +113,41 @@ class _HomePageState extends State<HomePage> {
                                 return Row(
                                   children: propertyList
                                       .map((e) => SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .7,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .9,
                                             child: Card(
                                               elevation: 10,
                                               child: Column(
                                                 children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      top: 10,
+                                                      bottom: 50,
+                                                    ),
+                                                    child: Image.asset(
+                                                      "images/RentEase-v1.png",
+                                                      height: 90,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              1,
+                                                    ),
+                                                  ),
                                                   Text(
-                                                    '৳${e.rent}',
+                                                    'BDT ${e.rent}',
                                                     style: const TextStyle(
                                                         fontSize: 25),
                                                   ),
                                                   Text(
-                                                    e.description,
+                                                    e.address,
                                                     style: const TextStyle(
                                                         fontSize: 18),
                                                   ),
@@ -133,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                                                         fontSize: 18),
                                                   ),
                                                   Text(
-                                                    e.address,
+                                                    e.description,
                                                     style: const TextStyle(
                                                         fontSize: 22),
                                                   ),
