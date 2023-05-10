@@ -3,6 +3,8 @@ import 'package:rentease/PropertyList/Provider/get_property_list.dart';
 import 'package:rentease/LoginPage/Pages/login_page.dart';
 import 'package:rentease/PropertyList/Model/property_model.dart';
 
+import 'all_property.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
@@ -94,7 +96,14 @@ class _HomePageState extends State<HomePage> {
                             TextButton(
                               style: TextButton.styleFrom(
                                   splashFactory: NoSplash.splashFactory),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                    return const AllProperty();
+                                  }),
+                                );
+                              },
                               child: const Text(
                                 'View All',
                                 style: TextStyle(
