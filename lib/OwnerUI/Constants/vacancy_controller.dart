@@ -13,6 +13,7 @@ final _bathController = TextEditingController();
 final _rentController = TextEditingController();
 final _areaController = TextEditingController();
 final _categoryController = TextEditingController();
+final _titleController = TextEditingController();
 
 addVacancy() {
   if (formKey.currentState!.validate()) {
@@ -25,6 +26,7 @@ addVacancy() {
         rent: _rentController.text,
         area: _areaController.text,
         category: _categoryController.text,
+        title: _titleController.text,
       );
       propertyList.addVacancy(vacancy!);
     }

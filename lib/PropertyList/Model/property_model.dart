@@ -16,6 +16,7 @@ class PropertyModel {
     required this.rent,
     required this.area,
     required this.category,
+    required this.title,
   });
 
   final String description;
@@ -25,6 +26,7 @@ class PropertyModel {
   final String rent;
   final String area;
   final String category;
+  final String title;
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) => PropertyModel(
         description: json["description"],
@@ -34,6 +36,7 @@ class PropertyModel {
         rent: json["rent"],
         area: json["area"],
         category: json["category"],
+        title: json["title"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,19 +47,20 @@ class PropertyModel {
         "rent": rent,
         "area": area,
         "category": category,
+        "title": title
       };
 
   factory PropertyModel.snapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return PropertyModel(
-      description: data['description'],
-      address: data['address'],
-      rooms: data['rooms'],
-      baths: data['baths'],
-      rent: data['rent'],
-      area: data['area'],
-      category: data['category'],
-    );
+        description: data['description'],
+        address: data['address'],
+        rooms: data['rooms'],
+        baths: data['baths'],
+        rent: data['rent'],
+        area: data['area'],
+        category: data['category'],
+        title: data['title']);
   }
 }

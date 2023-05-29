@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:rentease/HomePage/Pages/home_page.dart';
 import 'vacancies.dart';
@@ -76,6 +77,7 @@ class _OwnerUIState extends State<OwnerUI> {
                       child: GestureDetector(
                         onTap: () {},
                         child: Card(
+                          elevation: 2,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           child: Padding(
@@ -83,7 +85,7 @@ class _OwnerUIState extends State<OwnerUI> {
                             child: Column(
                               children: const [
                                 Icon(
-                                  Icons.person,
+                                  Icons.person_outline,
                                   size: 30,
                                 ),
                                 SizedBox(height: 10),
@@ -98,21 +100,25 @@ class _OwnerUIState extends State<OwnerUI> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 40),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
+                  const Expanded(child: SizedBox()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: GestureDetector(
+                        onTap: () {},
                         child: Card(
+                          elevation: 2,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
+                            ),
                             child: Column(
                               children: const [
                                 Icon(
-                                  Icons.message,
+                                  Icons.message_outlined,
                                   size: 30,
                                 ),
                                 SizedBox(height: 10),
@@ -127,6 +133,73 @@ class _OwnerUIState extends State<OwnerUI> {
                       ),
                     ),
                   )
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Column(
+                              children: const [
+                                Icon(
+                                  Icons.notification_important_outlined,
+                                  size: 30,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Requests",
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Column(
+                              children: const [
+                                Icon(
+                                  Icons.notification_add_outlined,
+                                  size: 30,
+                                ),
+                                SizedBox(height: 10),
+                                AutoSizeText(
+                                  "Send Notification",
+                                  style: TextStyle(fontSize: 30),
+                                  maxLines: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               )
             ],

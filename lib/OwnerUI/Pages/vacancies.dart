@@ -121,6 +121,7 @@ class _PostVacancyState extends State<PostVacancy> {
   final _bathController = TextEditingController();
   final _rentController = TextEditingController();
   final _areaController = TextEditingController();
+  final _titleController = TextEditingController();
 
   addVacancy() {
     if (formKey.currentState!.validate()) {
@@ -133,6 +134,7 @@ class _PostVacancyState extends State<PostVacancy> {
           rent: _rentController.text,
           area: _areaController.text,
           category: _selecthomeType.toString(),
+          title: _titleController.text,
         );
         propertyList.addVacancy(vacancy!);
       }
@@ -197,6 +199,27 @@ class _PostVacancyState extends State<PostVacancy> {
                           },
                           decoration: const InputDecoration(
                             labelText: 'Description',
+                            labelStyle: TextStyle(
+                                color: Color.fromRGBO(0, 0, 0, 0.686),
+                                fontSize: 15),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.686),
+                                  width: 2.0),
+                            ),
+                          ),
+                        ),
+                        TextFormField(
+                          controller: _descriptionController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Title is required';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            labelText: 'Title',
+                            hintText: 'add a small title about your apartment',
                             labelStyle: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 0.686),
                                 fontSize: 15),

@@ -3,7 +3,7 @@ import 'package:rentease/PropertyList/Provider/get_property_list.dart';
 import 'package:rentease/LoginPage/Pages/login_page.dart';
 import 'package:rentease/PropertyList/Model/property_model.dart';
 
-import 'all_property.dart';
+import '../../PropertyList/Pages/all_property.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -74,120 +74,117 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-            Card(
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .8,
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Column(
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * .85,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                'All Properties',
-                                style: TextStyle(fontSize: 22),
-                              ),
-                            ),
-                            const Spacer(),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                  splashFactory: NoSplash.splashFactory),
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                    return const AllProperty();
-                                  }),
-                                );
-                              },
-                              child: const Text(
-                                'View All',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
-                              ),
-                            ),
-                          ],
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            'All Properties',
+                            style: TextStyle(fontSize: 22),
+                          ),
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: FutureBuilder<List<PropertyModel>>(
-                            future: PropertyList.instance.propertyData(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                final propertyList = snapshot.data!;
-                                return Row(
-                                  children: propertyList
-                                      .map((e) => SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .7,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .9,
-                                            child: Card(
-                                              elevation: 10,
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      top: 10,
-                                                      bottom: 50,
-                                                    ),
-                                                    child: Image.asset(
-                                                      "images/RentEase-v1.png",
-                                                      height: 90,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              1,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'BDT ${e.rent}',
-                                                    style: const TextStyle(
-                                                        fontSize: 25),
-                                                  ),
-                                                  Text(
-                                                    e.address,
-                                                    style: const TextStyle(
-                                                        fontSize: 18),
-                                                  ),
-                                                  Text(
-                                                    e.area,
-                                                    style: const TextStyle(
-                                                        fontSize: 18),
-                                                  ),
-                                                  Text(
-                                                    e.description,
-                                                    style: const TextStyle(
-                                                        fontSize: 22),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ))
-                                      .toList(),
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else {
-                                return const CircularProgressIndicator();
-                              }
-                            },
+                        const Spacer(),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              splashFactory: NoSplash.splashFactory),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return const AllProperty();
+                              }),
+                            );
+                          },
+                          child: const Text(
+                            'View All',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ))
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: FutureBuilder<List<PropertyModel>>(
+                        future: PropertyList.instance.propertyData(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final propertyList = snapshot.data!;
+                            return Row(
+                              children: propertyList
+                                  .map((e) => SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                .7,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .9,
+                                        child: Card(
+                                          elevation: 10,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                  top: 10,
+                                                  bottom: 50,
+                                                ),
+                                                child: Image.asset(
+                                                  "images/RentEase-v1.png",
+                                                  height: 90,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      1,
+                                                ),
+                                              ),
+                                              Text(
+                                                'BDT ${e.rent}',
+                                                style: const TextStyle(
+                                                    fontSize: 25),
+                                              ),
+                                              Text(
+                                                e.address,
+                                                style: const TextStyle(
+                                                    fontSize: 18),
+                                              ),
+                                              Text(
+                                                e.area,
+                                                style: const TextStyle(
+                                                    fontSize: 18),
+                                              ),
+                                              Text(
+                                                e.description,
+                                                style: const TextStyle(
+                                                    fontSize: 22),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

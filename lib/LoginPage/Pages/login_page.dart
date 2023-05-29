@@ -70,22 +70,27 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 150),
+                  const SizedBox(height: 80),
                   Center(
                     child: Column(
                       children: [
-                        const Placeholder(
-                          fallbackHeight: 100,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          child: Image.asset(
+                            "images/RentEase-v1.png",
+                            fit: BoxFit.contain,
+                            height: 100,
+                            width: 400,
+                          ),
                         ),
-                        Image.asset(
-                          "images/RentEase-v1.png",
-                          fit: BoxFit.contain,
-                          height: 30,
-                          width: 150,
-                        ),
-                        const Text(
-                          ("Welcome to RentEase!"),
-                          style: TextStyle(fontSize: 22),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            ("Welcome to RentEase!"),
+                            style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.green.withOpacity(.8)),
+                          ),
                         ),
                       ],
                     ),
@@ -140,7 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: const Text("Forgot Password?",
-                          style: TextStyle(color: Color.fromRGBO(0, 0, 0, 80))),
+                          style: TextStyle(
+                              color: Color.fromRGBO(199, 71, 71, 0.69))),
                     ),
                   ),
                   Padding(
@@ -175,7 +181,8 @@ class _LoginPageState extends State<LoginPage> {
                             splashFactory: NoSplash.splashFactory),
                         child: const Text(
                           'Sign Up',
-                          style: TextStyle(color: Colors.black, fontSize: 17),
+                          style:
+                              TextStyle(color: Colors.lightBlue, fontSize: 17),
                         ),
                         onPressed: () {
                           Navigator.of(context).push(
