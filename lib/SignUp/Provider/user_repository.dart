@@ -11,13 +11,19 @@ class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
   final _db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+  var uid;
 
   createUser(BuildContext context, UserModel user) async {
+    var d;
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
+      uid = userCredential.user!.uid;
+
+      print("userCredential: ${userCredential.user!.uid}");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar('The password provided is too weak.',
@@ -38,7 +44,15 @@ class UserRepository extends GetxController {
       print(e);
     }
     try {
-      var d = await _db.collection("Users").add(user.toJson());
+      d = await _db.collection("Users").add(user.toJson());
+      print('Signup UID: ${d.id}');
+
+      ////
+      final CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('Users');
+
+      await usersCollection.doc(uid).set(user.toJson());
+
       print('d:${d.id}');
       if (d.id.isNotEmpty) {
         Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
@@ -63,9 +77,17 @@ class UserRepository extends GetxController {
 
   signIn(String _email, String _pass) async {
     try {
-      await FirebaseAuth.instance
+      UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pass);
-      Get.off(() => const OwnerUI());
+      print("Login userCredential: ${userCredential.user!.uid}");
+      _db.collection('Users').doc(userCredential.user!.uid).get().then((value) {
+        if (value.data()!['category'] == 'Tenant') {
+          Get.off(() => const TenantUI());
+        } else {
+          Get.off(() => const OwnerUI());
+        }
+      });
+      // Get.off(() => const OwnerUI());
 
       FirebaseAuth.instance.authStateChanges().listen((User? user) async {
         if (user != null) {
